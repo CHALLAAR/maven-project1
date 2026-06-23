@@ -8,7 +8,11 @@ trigger:
 
 pool:
   vmImage: ubuntu-latest
-  vmImage: ubuntu
+  vmImage: Linux Redhat-latest
+- task: CopyFiles@2
+  inputs:
+    Contents: '**/*Linux'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 
 steps:
 - task: ArchiveFiles@2
@@ -16,3 +20,16 @@ steps:
     rootFolderOrFile: '$(build.sourcesDirectory)'
     includeRootFolder: false
 - task: PublishBuildArtifacts@1
+input:
+contents:'**/*Linux'
+Targetfolder:
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Linux'
+    publishLocation: 'Container'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Linux'
+    publishLocation: 'Container'
